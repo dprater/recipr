@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<%= image_tag(@recipe.image_url) if @recipe.image? %>
 <p>
   <strong>Name:</strong>
   <%= @recipe.name %>
@@ -10,10 +11,32 @@
   <%= @recipe.description %>
 </p>
 
+<% if @recipe.categories.any? %>
+  <p>
+    <strong>Ingredients:</strong>
+    <ul>
+      <% @recipe.ingredients.each do |ing| %>
+        <% qty = ing.quantity % 1 == 0 ? ing.quantity.to_i : ing.quantity %>
+        <li><%= ing.name %>: <%= qty %> <%= ing.unit_of_measurement.pluralize(ing.quantity) %></li>
+      <% end %>
+    </ul>
+  </p>
+<% end %>
 <p>
   <strong>Instructions:</strong>
   <%= @recipe.instructions %>
 </p>
-
+<% if @recipe.categories.any? %>
+  <p>
+    <strong>Found In: <strong>
+    <ul>
+    <% @recipe.categories.each do |cat| %>
+      <li><%= link_to cat.name, category_path(cat) %></li>
+    <% end %>
+    </ul>
+  </p>
+<% end %>
+<br>
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= link_to 'Destroy', @recipe, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', recipes_path %>

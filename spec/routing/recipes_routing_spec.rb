@@ -7,6 +7,10 @@ RSpec.describe RecipesController, type: :routing do
       expect(:get => "/recipes").to route_to("recipes#index")
     end
 
+    it "routes to #search" do
+      expect(:get => "/recipes/search").to route_to("recipes#search")
+    end
+
     it "routes to #new" do
       expect(:get => "/recipes/new").to route_to("recipes#new")
     end

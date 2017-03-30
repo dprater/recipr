@@ -1,14 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @category.name %>
+  <h3><%= @category.name %></h3>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @category.description %>
-</p>
+<p><%= @category.description %></p>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
+<% if @recipes %>
+  <% @recipes.each_with_index do |recipe, i| %>
+    <div class="col-sm-4 text-center">
+      <h3><%= link_to recipe.name, recipe %></h3>
+      <%= recipe.description %><br /><br />
+      <%= link_to 'Edit', edit_recipe_path(recipe) %>
+      <%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <br /></br >
+    </div>
+    <% if (i + 1) %3 == 0 %>
+      </div>
+      <div class="row">
+    <% end %>
+    <% if (i + 1) == @recipes.count %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+<br />
+<br />
+
 <%= link_to 'Back', categories_path %>

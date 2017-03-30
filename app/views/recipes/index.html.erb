@@ -1,124 +1,47 @@
-<p id="notice"><%= notice %></p>
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<nav class="navbar navbar-default" role="navigation">
-				<div class="navbar-header">
-
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-					</button> <a class="navbar-brand" href="/">Recipr</a>
-				</div>
-
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active">
-							<a href="#">News</a>
-						</li>
-            <li>
-							<a href="#">Articles</a>
-						</li>
-						<li>
-							<a href="#">Reviews</a>
-						</li>
-						<li class="dropdown">
-							 <a href="/recipes">Recipes</a>
-						</li>
-					</ul>
-					<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input class="form-control" type="text" />
-						</div>
-						<button type="submit" class="btn btn-default">
-							Submit
-						</button>
-					</form>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Menu<strong class="caret"></strong></a>
-							<ul class="dropdown-menu">
-								<li>
-									<a href="#">Favorites</a>
-								</li>
-								<li>
-									<a href="#">Account Settings</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									<a href="#">Logout</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-
-			</nav>
-			<div class="jumbotron">
-				<h2>
-					Welcome to Recipr Recipes!
-				</h2>
-				<p>
-					Here you can find the perfect recipe for your next dinner in. Whether you want Mac and Cheese,
-          or maybe even <i>fancy</i> Mac and Cheese, Recipr Recipes has you covered. Browse our amazing selection
-          of recipes, and share your favorites with us.
-				</p>
-				<p>
-          <%= link_to 'Share Your Recipe!', new_recipe_path, class: "btn btn-primary btn-large" %>
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<h2>
-				Recipe 1
-			</h2>
-			<p>
-				This is the first description
-			</p>
-			<p>
-				<a class="btn" href="#">View details »</a>
-			</p>
-		</div>
-		<div class="col-md-4">
-			<h2>
-				Recipe 2
-			</h2>
-			<p>
-				This is the second description
-			</p>
-			<p>
-				<a class="btn" href="#">View details »</a>
-			</p>
-		</div>
-		<div class="col-md-4">
-			<h2>
-				Recipe 3
-			</h2>
-			<p>
-				This is the third description
-			</p>
-			<p>
-				<a class="btn" href="#">View details »</a>
-			</p>
-		</div>
-	</div>
-  <div class="row">
-    <div class="col-md-4">
-      <a class="btn" href="/recipes?view=all">Browse Categories »</a>
+<div class="jumbotron">
+	<h2>
+		Welcome to Recipr Recipes!
+	</h2>
+	<p>
+		Here you can find the perfect recipe for your next dinner in. Whether you want Mac and Cheese,
+    or maybe even <i>fancy</i> Mac and Cheese, Recipr Recipes has you covered. Browse our amazing selection
+    of recipes, and share your favorites with us.
+	</p>
+	<p>
+    <%= link_to 'Share Your Recipe!', new_recipe_path, class: "btn btn-primary btn-large" %>
+	</p>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <h3>Some of our Favorites...</h3>
+  </div>
+  <% @recipes.each do |recipe| %>
+    <div class="col-md-4">
+			<h2>
+				<%= recipe.name %>
+			</h2>
+			<p>
+				<%= recipe.description %>
+			</p>
+			<p>
+        <%= link_to 'View details »', recipe, class: "btn" %>
+			</p>
+		</div>
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a class="btn" href="/categories">Browse All Categories »</a>
+  </div>
+</div>
 
-<!--    <% @recipes.each do |recipe| %>
-      <tr>
-        <td><%= recipe.name %></td>
-        <td><%= recipe.description %></td>
-        <td><%= recipe.instructions %></td>
-        <td><%= link_to 'Show', recipe %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<!--      <tr>
+        <td>< %= recipe.name %></td>
+        <td>< %= recipe.description %></td>
+        <td>< %= recipe.instructions %></td>
+        <td>< %= link_to 'Show', recipe %></td>
+        <td>< %= link_to 'Edit', edit_recipe_path(recipe) %></td>
+        <td>< %= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
 -->

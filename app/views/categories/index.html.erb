@@ -1,29 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= category.description %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<h1>Categories</h1>
+  <% @categories.each_with_index do |category, i| %>
+    <div class="col-sm-4 text-center">
+      <h3><%= link_to category.name, category %></h3>
+      <%= category.description %><br /><br />
+      <%= link_to 'Edit', edit_category_path(category) %>
+      <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <br /></br >
+    </div>
+    <% if (i + 1) %3 == 0 %>
+      </div>
+      <div class="row">
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
+    <% if (i + 1) == @categories.count %>
+      </div>
+    <% end %>
+  <% end %>
+<br />
+<br />
 <%= link_to 'New Category', new_category_path %>

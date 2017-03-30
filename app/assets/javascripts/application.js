@@ -12,6 +12,34 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(function() {
+	$('#recipe_search').autocomplete({
+	  source: function(request, response) {
+	    $.get('/recipes/search.json', {
+	      query: request.term
+	    }, function(data) {
+	      response(data);
+	    });
+	  },
+	  minLength: 2,
+    select: function(event, ui) {
+              $('#recipe_search').val(ui.item.label);
+              $('#recipe_search_value').val(ui.item.val);
+            }
+	});
+
+  $('#search_form').submit(function() {
+    return false;
+  });
+
+  $('#recipe_selector').click(function() {
+      id = $('#recipe_search_value').val();
+      window.location.href = 'http://localhost:3000/recipes/' + id;
+  });
+    
+});

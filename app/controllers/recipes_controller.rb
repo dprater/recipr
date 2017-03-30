@@ -1,30 +1,34 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :get_categories, only: [:new, :edit]
 
-  # GET /recipes
-  # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.random_recipes(3)
   end
 
-  # GET /recipes/1
-  # GET /recipes/1.json
+  def search
+    term = params[:query]
+    @result = Recipe.where("name LIKE #{ActiveRecord::Base.sanitize("%#{term}%")}")
+                    .select(:id, :name)
+                    .map { |x| { val: x.id, label: x.name } }
+    render json: @result
+  end
+
   def show
   end
 
-  # GET /recipes/new
   def new
     @recipe = Recipe.new
+    @recipe.ingredients.build
   end
 
-  # GET /recipes/1/edit
   def edit
   end
 
-  # POST /recipes
-  # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+    @category = Category.where(name: recipe_params[:category_name]).first
+    @recipe.categories.push @category if @category
 
     respond_to do |format|
       if @recipe.save
@@ -37,9 +41,9 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recipes/1
-  # PATCH/PUT /recipes/1.json
   def update
+    @category = Category.where(name: recipe_params[:category_name]).first
+    @recipe.categories.push @category if @category && !@recipe.categories.include?(@category)
     respond_to do |format|
       if @recipe.update(recipe_params)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
@@ -51,8 +55,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # DELETE /recipes/1
-  # DELETE /recipes/1.json
   def destroy
     @recipe.destroy
     respond_to do |format|
@@ -62,13 +64,17 @@ class RecipesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_recipe
       @recipe = Recipe.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def get_categories
+      @categories = Category.pluck(:name).uniq
+    end
+
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :instructions)
+      params.require(:recipe)
+            .permit(:name, :description, :instructions, :image, :category_name,
+                    ingredients_attributes: [ :id, :name, :quantity, :unit_of_measurement, :_destroy ])
     end
 end
