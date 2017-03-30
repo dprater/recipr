@@ -1,28 +1,25 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* To install the necessary gems, run `bundle install`
+* Load some test data via `bundle exec rake db:seed`
+* Start the rails server via `bundle exec rails s`
+* Open your browser of choice (if that's not Firefox, I'm not sure that we can be friends (c: ) and navigate to http://localhost:3000
+* Run the tests from the application root directory via `bundle exec rspec`
 
-Things you may want to cover:
+=== Notes
+* The "Search field" at the top center of the page is the requested "Ajaxy" feature. Just start typing in there to search recipe names.
+* I apologize in advance for the lack of prettiness. I have spent the majority of the last 15 years of my programming life on the backend of applications, so doing frontend work is a change.
+* Please take any recipes or text within this application with the proverbial grain of salt. Most of this work was done between the hours of 11:00PM and 4:00AM on a couple different nights, and my filtering mechanisms at that time of the night may not be what they should be.
 
-* Ruby version
+=== Assumptions
+* The primary assumption I made is that I should try to make it at least reasonably user-friendly. Things like nested forms and some of the other features took a long time because it's been longer than it should've been since I've done that work, but my aim was to make it reasonably user friendly.
+* You'll see the edit/destroy links mixed in with the index pages. Those links would certainly not be where they are in a standard web application, but I wanted to make them accessible since you'll presumably want to be able to get to everything that can be gotten to, so I left them in place.
+* I added "fake" links and navigation and whatnot at the top of the page to make it look more like a "normal" website. They do not work, and I didn't intend for them to. The only navigation link that works is the "Recipes" link.
+* I didn't take the time to pretty up some of the lesser used pages (ingredients and category form pages, for example) because, frankly, I've spent enough time on this already. My hope is that you were not looking for perfection.
+* I did not bother with things like setting up a cache or other "production" type tasks. I also didn't add an index to the recipe's name column, which it could certainly use since it's searchable. My assumption is that those weren't the sorts of things you were looking for in this project, so I didn't spend time on them. I am aware of them, however (c;
 
-* System dependencies
+=== Thanks
+Thanks for giving me to opportunity to undertake this project and send it in for your review/consideration. It brought me back into a lot of frontend work that I haven't done in a while, so it was certainly a change of pace from my day job.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Cheers,
+David Prater
